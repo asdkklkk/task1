@@ -7,6 +7,7 @@ A Simple Telegram Bot Implementation
 
 import logging
 from typing import Optional
+from config import TELEGRAM_CONFIG
 
 # 配置日志
 logging.basicConfig(
@@ -32,13 +33,18 @@ class TelegramBot:
         logger.info("电报机器人已初始化 - Telegram Bot initialized")
     
     def start(self):
-        """启动机器人 - Start the bot"""
+        """启动机器人 - Start the bot
+        
+        Returns:
+            bool: True if started successfully, False otherwise
+        """
         if not self.token:
             logger.warning("警告：未设置Token - Warning: No token set")
-            return
+            return False
         
         self.running = True
         logger.info("电报机器人已启动 - Telegram Bot started")
+        return True
     
     def stop(self):
         """停止机器人 - Stop the bot"""
@@ -57,8 +63,7 @@ class TelegramBot:
             logger.warning("机器人未运行 - Bot is not running")
             return
         
-        logger.info(f"发送消息到 {chat_id}: {text}")
-        logger.info(f"Sending message to {chat_id}: {text}")
+        logger.info(f"发送消息到/Sending message to {chat_id}: {text}")
     
     def handle_message(self, message: str) -> str:
         """
@@ -71,9 +76,9 @@ class TelegramBot:
             回复内容 - Reply text
         """
         if message == "/start":
-            return "欢迎使用电报机器人！Welcome to Telegram Bot!"
+            return TELEGRAM_CONFIG['welcome_message']
         elif message == "/help":
-            return "可用命令：/start, /help, /info"
+            return TELEGRAM_CONFIG['help_message'].strip()
         elif message == "/info":
             return "这是一个简单的电报机器人实现"
         else:
