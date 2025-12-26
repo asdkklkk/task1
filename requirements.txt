@@ -1,0 +1,6 @@
+# Python依赖包
+# Python Dependencies
+
+# 如果需要使用完整的Telegram Bot API，可以安装：
+# For full Telegram Bot API support, install:
+# python-telegram-bot>=20.0
