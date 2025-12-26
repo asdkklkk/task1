@@ -1,0 +1,6 @@
+# TelegramX Bot Dependencies
+# For production use, you would typically include:
+# python-telegram-bot>=20.0
+
+# For now, keeping it minimal to demonstrate the structure
+# No external dependencies required for the basic implementation
