@@ -14,13 +14,6 @@ TELEGRAM_CONFIG = {
     # 机器人名称
     'bot_name': '电报机器人',
     
-    # 允许的命令
-    'allowed_commands': [
-        '/start',
-        '/help',
-        '/info',
-    ],
-    
     # 欢迎消息
     'welcome_message': '欢迎使用电报机器人！\nWelcome to Telegram Bot!',
     
@@ -31,10 +24,7 @@ TELEGRAM_CONFIG = {
 /help - 显示帮助 Show help
 /info - 机器人信息 Bot info
 ''',
-}
-
-# 日志配置
-LOG_CONFIG = {
-    'level': 'INFO',
-    'format': '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    
+    # 机器人信息
+    'info_message': '这是一个简单的电报机器人实现\nThis is a simple Telegram Bot implementation',
 }

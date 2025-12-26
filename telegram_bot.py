@@ -80,7 +80,7 @@ class TelegramBot:
         elif message == "/help":
             return TELEGRAM_CONFIG['help_message'].strip()
         elif message == "/info":
-            return "这是一个简单的电报机器人实现"
+            return TELEGRAM_CONFIG['info_message']
         else:
             return f"收到消息：{message}"
 
