@@ -4,6 +4,8 @@ TrelegramX - A simple messaging application module
 This module provides basic messaging functionality similar to Telegram.
 """
 
+import time
+
 
 class TrelegramX:
     """Main TrelegramX application class for managing messages and users."""
@@ -51,7 +53,7 @@ class TrelegramX:
             'from': from_user_id,
             'to': to_user_id,
             'content': content,
-            'timestamp': len(self.messages)
+            'timestamp': time.time()
         }
         
         self.messages.append(message)
