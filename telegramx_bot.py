@@ -6,6 +6,7 @@ This module provides a basic Telegram bot that can send notifications and respon
 import os
 import json
 import logging
+import html
 from typing import Optional, Dict, Any
 
 # Configure logging
@@ -23,6 +24,7 @@ class TelegramXBot:
     Attributes:
         token (str): The Telegram bot token
         chat_id (str): Default chat ID for sending messages
+        _message_counter (int): Counter for mock message IDs
     """
     
     def __init__(self, token: Optional[str] = None, chat_id: Optional[str] = None):
@@ -35,6 +37,7 @@ class TelegramXBot:
         """
         self.token = token or os.getenv('TELEGRAM_BOT_TOKEN')
         self.chat_id = chat_id or os.getenv('TELEGRAM_CHAT_ID')
+        self._message_counter = 0
         
         if not self.token:
             raise ValueError("Telegram bot token is required. Set TELEGRAM_BOT_TOKEN environment variable.")
@@ -59,11 +62,12 @@ class TelegramXBot:
         logger.info(f"Sending message to chat {target_chat_id}: {message[:50]}...")
         
         # In a real implementation, this would make an API call to Telegram
-        # For now, we'll return a mock response
+        # For now, we'll return a mock response with a unique message ID
+        self._message_counter += 1
         return {
             'ok': True,
             'result': {
-                'message_id': 1,
+                'message_id': self._message_counter,
                 'chat': {'id': target_chat_id},
                 'text': message
             }
@@ -74,14 +78,17 @@ class TelegramXBot:
         Send a formatted notification message.
         
         Args:
-            title: Notification title
-            body: Notification body text
+            title: Notification title (will be HTML-escaped)
+            body: Notification body text (will be HTML-escaped)
             chat_id: Target chat ID (uses default if not provided)
         
         Returns:
             Response from Telegram API
         """
-        message = f"<b>{title}</b>\n\n{body}"
+        # Escape HTML to prevent injection and formatting issues
+        escaped_title = html.escape(title)
+        escaped_body = html.escape(body)
+        message = f"<b>{escaped_title}</b>\n\n{escaped_body}"
         return self.send_message(message, chat_id)
     
     @staticmethod
